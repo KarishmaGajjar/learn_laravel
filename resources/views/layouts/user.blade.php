@@ -30,7 +30,7 @@
                                 {{$role}}
                                 @endforeach
                             </td>
-                            <td><a href="users/assign_role/{{$user->id}}"class="btn btn-icon btn-secondary" type="submit"><i class="bx bx-edit-alt me-2"></i></a></td>
+                            <td><a href="users/roles/{{$user->id}}"class="btn btn-icon btn-secondary" type="submit"><i class="bx bx-edit-alt me-2"></i></a></td>
                             <td>@can('product edit') <a href="user/edit/{{$user->id}}"class="btn btn-icon btn-secondary" type="submit"><i class="bx bx-edit-alt me-2"></i></a>@endcan
                            <a href="user/delete/{{$user->id}}" class="btn btn-icon btn-danger" type="submit"><i class="bx bx-trash me-2"></i></a></td>
                            </tr>

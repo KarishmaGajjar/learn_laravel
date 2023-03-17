@@ -18,16 +18,16 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="basic-default-name" name="name" />
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">{{$user->name}}</label>
                           </div>
                         </div>
                          <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">Permissions</label>
-                          @foreach($permissions as $permission)
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Roles</label>
+                          @foreach($roles as $role)
                           <div class="col-sm-10">
                               <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="{{$permission->id}}" id="defaultCheck1" name="permission[]"/>
-                            <label class="form-check-label" for="defaultCheck1"> {{$permission->name}} </label>
+                            <input class="form-check-input" type="checkbox" value="{{$role->id}}" id="defaultCheck1" name="role[]"/>
+                            <label class="form-check-label" for="defaultCheck1"> {{$role->name}} </label>
                           </div>
                           </div>
                           @endforeach

@@ -40,9 +40,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('users/create', [userController::class, 'create']);
     Route::post('users/insert', [userController::class, 'insert']);
     Route::get('users/edit/{id}', [userController::class, 'edit']);
-    Route::get('users/assign_role/{id}', [userController::class, 'assign_role']);
     Route::post('users/update/{id}', [userController::class, 'update']);
     Route::get('users/delete/{id}', [userController::class, 'delete']);
+    Route::get('users/roles/{id}', [userController::class, 'roles']);
+    Route::post('users/assign_role/{id}', [userController::class, 'assign_role']);
     //role_permission
      Route::get('/roles', [RoleController::class, 'index'])->name('roles');
     Route::get('roles/create', [RoleController::class, 'create']);

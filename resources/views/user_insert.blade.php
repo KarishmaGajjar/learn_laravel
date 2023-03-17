@@ -13,7 +13,7 @@
                       <small class="text-muted float-end">Default label</small>
                     </div>
                     <div class="card-body">
-                      <form method="POST" action="/roles/insert">
+                      <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>

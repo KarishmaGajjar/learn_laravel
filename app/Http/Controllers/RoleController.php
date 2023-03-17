@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function edit($id){
         $role=Role::find($id);
         $permissions=Permission::all();
-        return view('edit_role',compact('role','permissions'));
+        return view('layouts.edit_role',compact('role','permissions'));
     }
     public function update(Request $request,$id){
         $role = Role::find($id);
