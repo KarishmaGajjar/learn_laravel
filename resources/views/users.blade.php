@@ -12,7 +12,7 @@
         <div class="col-md-4 mt-5">
             <h1>User List</h1>
             @can('product add')
-            <div class="col-md-4"><a href="{{url('/create')}}"><button class="btn btn-primary">Insert</button></a></div>
+            <div class="col-md-4"><a href="{{url('/users/create')}}"><button class="btn btn-primary">Insert</button></a></div>
             @endcan
             <table class="table table-striped mt-3">
               <thead>
@@ -20,8 +20,9 @@
                 <th>id</th>
                <th>Name</th>
                <th>Email</th>
+               @role('admin')
                <th>Roles</th>
-
+               @endrole
                <th>Action</th>
 
               </tr>
@@ -38,7 +39,7 @@
                 @endforeach
             </td>
 
-            <td>@can('product edit') <a href="edit/{{$user->id}}" class="btn btn-success" type="submit">Edit</a>@endcan
+            <td>@role('a') <a href="edit/{{$user->id}}" class="btn btn-success" type="submit">Edit</a>@endcan
             @can('product delete')<a href="delete/{{$user->id}}" class="btn btn-danger" type="submit">Delete</a>@endrole</td>
            </tr>
            @endforeach

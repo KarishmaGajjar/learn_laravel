@@ -6,45 +6,112 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Hash;
+use DB;
 class userController extends Controller
 {
       public function index(){
         $users=User::with('permissions')->get();
         return view('layouts.user',compact('users'));
-     }
-       public function create(){
-        return view('layouts.add_permission');
-    }
-     public function insert(Request $request)
-    {
-        $permissions = Permission::create(['name' => $request->input('name')]);
-       // $role->syncPermissions($request->input('permission'));
-        return redirect()->route('permissions');
+        }
+        public function create(){
+            if(auth()->user()->hasPermissionTo('create')){
+                return view('user_insert');
+            }
+            else{
+             return view('layouts.blank');
+            }
+        }
+        public function insert(Request $request){
+            if(auth()->user()->hasPermissionTo('create')){
+                 $validate=$request->validate([
+                 'name'=>'required',
+                 'email'=>'required|email|unique:users',
+                 'password'=>'required'
+                ],[
+                    'name.required'=>'Name is required',
+                    'email.required'=>'Email is required',
+                    'email.unique'=>'This email is already registered.Please enter unique email',
+                     'password.required'=>'Password is required',
+                ]);
+                $user=User::create([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password']),
+             ]);
+            return redirect()->route('users');
+        }
+         else{
+            return view('layouts.blank');
+        }
     }
      public function assign_role(Request $request,$id){
           $user=User::where('id',$id)->first();
-          $user->assignRole($request->input('role'));
-         $user->save();
-        return redirect()->route('roles');
+          $user->syncRoles($request->input('role'));
+          $user->save();
+          return redirect()->route('users');
     }
     public function roles($id){
-       $user=User::find($id);
-       $roles=Role::get();
-      return view('assign_role',compact('user','roles'));
+       if(auth()->user()->can('assign role')||auth()->user()->hasRole('admin')){
+           $user=User::find($id);
+           $roles=Role::get();
+            return view('assign_role',compact('user','roles'));
+        }
+         else{
+            return view('layouts.blank');
+        }
     }
-   public function edit($id){
-       $permission=Permission::find($id);
-      return view('layouts.edit_permission',compact('permission'));
+      public function permissions($id){
+       if(auth()->user()->can('assign permission')||auth()->user()->hasRole('admin')){
+             $user=User::find($id);
+             $permissions=Permission::all();
+              $user->getPermissionsViaRoles();
+              //return $user->getAllPermissions();->gets all direct or inherited permission from user
+             $has_permission=DB::table('model_has_permissions')->where('model_id',$id)->get();
+             //return $has_permission[1]->permission_id;
+            //$user->permissions;
+          return view('assign_permission',compact('user','permissions','has_permission'));
+        }
+        else{
+            return view('layouts.blank');
+        }
+    }
+    public function assign_permission(Request $request,$id){
+          $user=User::where('id',$id)->first();
+          $user->syncPermissions($request->input('permission'));
+          $user->save();
+          return redirect()->route('users');
+    }
+    public function edit($id){
+       if(auth()->user()->can('edit')){
+       $user=User::find($id);
+       return view('user_edit',compact('user'));
+     }
+      else{
+            return view('layouts.blank');
+        }
     }
     public function update(Request $request,$id){
-        $permission=Permission::find($id);
-        $permission->name = $request->input('name');
-        $permission->update();
-        return redirect()->route('permissions');
+       if(auth()->user()->hasPermissionTo('edit')){
+        $user=User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->update();
+        return redirect()->route('users');
+        }
     }
       public function delete(Request $request,$id){
-        $permission=Permission::where('id',$id)->delete($id);
-         return redirect()->route('permissions');
+         if(auth()->user()->can('delete')){
+            $user=User::where('id',$id)->delete($id);
+            return redirect()->route('users');
+         }
+         else{
+            return view('layouts.blank');
+         }
     }
+    //    public function remove_role(Request $request,$id){
+    //      return  $user=User::find($id);
+    //      $user->removeRole($request->input('role'));
+    //      return redirect()->route('users');
+    // }
 }

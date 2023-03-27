@@ -1,7 +1,7 @@
 @extends('index')
 @section('content')
        <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Horizontal Layouts</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Roles</h4>
 
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
@@ -9,8 +9,8 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Basic Layout</h5>
-                      <small class="text-muted float-end">Default label</small>
+                      <h5 class="mb-0">Roles</h5>
+                      <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
                       <form method="post" action="/roles/update/{{$role->id}}">
@@ -22,9 +22,9 @@
                           </div>
                         </div>
                          <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">Permissions</label>
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Permissions:</label>
                           @foreach($permissions as $permission)
-                          <div class="col-sm-10">
+                          <div class="col-sm-10 ms-5">
                               <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="{{$permission->id}}" id="defaultCheck1" name="permission[]" @if($role->permissions->contains($permission)) checked @endif/>
                             <label class="form-check-label" for="defaultCheck1"> {{$permission->name}} </label>

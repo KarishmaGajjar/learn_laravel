@@ -21,7 +21,7 @@
                <tr>
                 <th>id</th>
                <th>Roles</th>
-               <th>Action</th>
+              @role('admin') <th>Action</th>@endrole
 
               </tr>
               </thead>

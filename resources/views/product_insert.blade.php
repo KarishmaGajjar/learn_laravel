@@ -1,54 +1,68 @@
-<html>
-    <head>
-    <title>crud</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-   <div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 mt-5">
-            <h1>Product Data</h1>
-            <form method="post" action="{{url('insert')}}">
-                @csrf
-                <div class="row">
-                 <div class="col-md">
-                    <label>Product id:</label>
-                    <input id="id" type="text" class="form-control" name="product_id">
-                 </div>
-            </div>
-             <div class="row">
-                 <div class="col-md-6">
-                    <label>Product Name</label>
-                    <input id="product_id" type="text" class="form-control" name="product_name">
-                 </div>
-                 <div class="col-md-6">
-                    <label>Proudct Description:</label>
-                    <input id="product_desc" type="text" class="form-control" name="product_desc">
-                 </div>
-            </div>
+@extends('index')
+@section('content')
 
+       <div class="container-xxl flex-grow-1 container-p-y">
+              @can('product add')<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Add Product</h4>@endcan
+
+              <!-- Basic Layout & Basic with Icons -->
               <div class="row">
+                <!-- Basic Layout -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">Products</h5>
+                      <small class="text-muted float-end"></small>
+                    </div>
+                    <div class="card-body">
+                      <form method="POST" action="/product/insert">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="name">Product Id</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="product_id" />
+                            @error('product_id')
+                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
+                             @enderror
+                          </div>
+                        </div>
 
-            </div>
-             <div class="row">
-                 <div class="col-md-6">
-                    <label>Category:</label>
-                    <input id="category" type="text" class="form-control" name="category">
-                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md">
-                    <button class="btn btn-success float-end mt-3" id="btnsubmit">Submit</button>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="name">Name</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="product_name" />
+                            @error('product_name')
+                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
+                             @enderror
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="name">Description</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="product_desc" />
+                            @error('product_desc')
+                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
+                             @enderror
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="name">Category</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="category" />
+                            @error('category')
+                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
+                             @enderror
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
             </div>
-            </form>
         </div>
-        <div class="col-md-4"></div>
-    </div>
 
-   </div>
-</body>
-</html>
+@endsection

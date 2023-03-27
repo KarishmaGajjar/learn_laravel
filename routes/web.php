@@ -21,7 +21,7 @@ use App\Http\Controllers\userController;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('index');
+    return view('layouts.blank');
 })->middleware('auth');
 Route::get('/test', function () {
     return view('layouts.test');
@@ -29,12 +29,12 @@ Route::get('/test', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/product', [ProductController::class, 'index'])->middleware('auth')->name('display');
+    Route::get('/product', [ProductController::class, 'index'])->middleware('auth')->name('products.index');
     Route::get('/create', [ProductController::class, 'create']);
-   // Route::post('/insert', [ProductController::class, 'insert']);
-    Route::get('/edit/{id}', [ProductController::class, 'edit']);
+    Route::post('product/insert', [ProductController::class, 'insert']);
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/update/{id}', [ProductController::class, 'update']);
-    Route::get('/delete/{id}', [ProductController::class, 'delete']);
+    Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
     //user
     Route::get('/users', [userController::class, 'index'])->name('users');
     Route::get('users/create', [userController::class, 'create']);
@@ -42,8 +42,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('users/edit/{id}', [userController::class, 'edit']);
     Route::post('users/update/{id}', [userController::class, 'update']);
     Route::get('users/delete/{id}', [userController::class, 'delete']);
+    Route::get('users/remove_role/{id}', [userController::class, 'remove_role']);
     Route::get('users/roles/{id}', [userController::class, 'roles']);
     Route::post('users/assign_role/{id}', [userController::class, 'assign_role']);
+     Route::get('users/permissions/{id}', [userController::class, 'permissions']);
+    Route::post('users/assign_permission/{id}', [userController::class, 'assign_permission']);
     //role_permission
      Route::get('/roles', [RoleController::class, 'index'])->name('roles');
     Route::get('roles/create', [RoleController::class, 'create']);
