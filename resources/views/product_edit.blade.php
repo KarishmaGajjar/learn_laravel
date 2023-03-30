@@ -16,11 +16,7 @@
                     <div class="card-body">
                       <form method="POST" action="/update/{{$product->id}}" id="add_role">
                         @csrf
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="name">Product Id</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="product_id" value="{{$product->product_id}}"/>
-                          </div>
+
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="name">Name</label>
@@ -34,10 +30,20 @@
                                     <input type="text" class="form-control" id="name" name="product_desc" value="{{$product->product_desc}}"/>
                           </div>
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="name">Category</label>
                           <div class="col-sm-10">
                                     <input type="text" class="form-control" id="name" name="category" value="{{$product->category}}"/>
+                          </div>
+                        </div> -->
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="name">Category</label>
+                          <div class="col-sm-4">
+                             <select class="dropdown-item" name="category">
+                              @foreach($categories as $category)
+                                  <option value="{{$category->id}}" @if($product->category==$category->id){{"selected"}}@endif>{{$category->name}}</option>
+                              @endforeach
+                                </select>
                           </div>
                         </div>
                         <div class="row justify-content-end">

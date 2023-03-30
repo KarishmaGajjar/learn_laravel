@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Category;
 use Yajra\DataTables\DataTables;
 
 
@@ -16,6 +17,7 @@ class ProductController extends Controller
     }
 
     public function index(Request $request){
+      $categories=Category::get();
         if ($request->ajax()) {
             $product = Product::get();
             return Datatables::of($product)
@@ -23,23 +25,29 @@ class ProductController extends Controller
                     ->addColumn('action', function($product){
                         $btn='';
                         if(auth()->user()->can('product edit')){
-                           $btn .= '<a href="'.route('products.edit',$product->id).'" class="btn btn-icon btn-secondary"><i class="bx bx-edit-alt me-2"></i></a>
+                           $btn .= '<a href="javascript:void(0)" class="btn btn-icon btn-secondary edit-product" id="edit-product" data-id="'.$product->id.'"><i class="bx bx-edit-alt me-2"></i></a>
                         ';
                         }
                         if(auth()->user()->can('product delete')){
-                        $btn.='<a href="'.route('products.delete',$product->id).'" class="btn btn-icon btn-danger"><i class="bx bx-trash me-2"></i></a>';
+                        //$btn.='<a href="'.route('products.delete',$product->id).'" class="btn btn-icon btn-danger product-delete" data-id="'.$product->id.'"><i class="bx bx-trash me-2 delete-product"></i></a>';
+                        $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-danger product-delete" data-id="'.$product->id.'"><i class="bx bx-trash me-2 delete-product"></i></a>';
                         //$btn = '<a href="{{$product->id}}" class="btn btn-icon btn-secondary"><i class="bx bx-edit-alt me-2"></i></a>';
                         }
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+
+                    ->rawColumns(['status','action'])
                     ->make(true);
                 }
-        return view('product_view');
+        return view('product_view')->with('categories',$categories);
     }
     public function create(){
+
+    //    return  $product = Product::get();
         if(auth()->user()->can('product add')){
-        return view('product_insert');
+          $categories=Category::get();
+        // return view('product_insert',compact('categories'));
+         return response()->json($categories);
         }
         else{
             return view('layouts.blank');
@@ -48,26 +56,25 @@ class ProductController extends Controller
     public function insert(Request $request){
         if(auth()->user()->can('product add')){
         $validate=$request->validate([
-            'product_id'=>'required|unique:products',
             'product_name'=>'required',
             'product_desc'=>'required',
             'category'=>'required'
         ],[
             'product_name.required'=>"Please enter product name",
-            'product_id.required'=>"Please Enter Product Id",
-            'product_id.unique'=>"Product Id should be unique",
             'product_desc.required'=>"Please Enter Product Description",
             'category.required'=>"Please Enter Category"
 
 
         ]);
-            $product=new Product;
-            $product->product_id=$request->input('product_id');
-            $product->product_name=$request->input('product_name');
-            $product->product_desc=$request->input('product_desc');
-            $product->category=$request->input('category');
-            $product->save();
-            return redirect()->route('products.index');
+            // $product=new Product;
+            // $product->product_name=$request->input('product_name');
+            // $product->product_desc=$request->input('product_desc');
+            // $product->category=$request->input('category');
+            // $product->save();
+            // return redirect()->route('products.index');
+             Product::updateOrCreate(['id' => $request->id],
+            ['product_name' => $request->product_name, 'product_desc' => $request->product_desc,'category' => $request->category]);
+            return response()->json(['success'=>'Post saved successfully.']);
         }
         else{
             return view('layouts.blank');
@@ -77,8 +84,10 @@ class ProductController extends Controller
     }
         public function edit($id){
             if(auth()->user()->can('product edit')){
+             $categories=Category::get();
              $product=Product::find($id);
-            return view('product_edit',compact('product'));
+            // return view('product_edit',compact('product','categories'));
+              return response()->json($product);
             }
             else{
                 return view('layouts.blank');
@@ -89,7 +98,6 @@ class ProductController extends Controller
        if(auth()->user()->can('product edit')){
 
         $product=Product::find($id);
-        $product->product_id=$request->input('product_id');
         $product->product_name=$request->input('product_name');
         $product->product_desc=$request->input('product_desc');
         $product->category=$request->input('category');

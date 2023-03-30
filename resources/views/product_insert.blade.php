@@ -17,16 +17,6 @@
                       <form method="POST" action="/product/insert">
                         @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="name">Product Id</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="product_id" />
-                            @error('product_id')
-                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
-                             @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="name">Name</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" name="product_name" />
@@ -44,13 +34,15 @@
                              @enderror
                           </div>
                         </div>
+
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="name">Category</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="category" />
-                            @error('category')
-                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
-                             @enderror
+                          <div class="col-sm-4">
+                             <select class="dropdown-item" name="category">
+                              @foreach($categories as $category)
+                                  <option value="{{$category->id}}">{{$category->name}}</option>
+                              @endforeach
+                                </select>
                           </div>
                         </div>
                         <div class="row justify-content-end">

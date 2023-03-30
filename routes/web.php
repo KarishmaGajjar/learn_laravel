@@ -31,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/product', [ProductController::class, 'index'])->middleware('auth')->name('products.index');
     Route::get('/create', [ProductController::class, 'create']);
-    Route::post('product/insert', [ProductController::class, 'insert']);
+    Route::post('product/insert', [ProductController::class, 'insert'])->name('products.create');
     Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/update/{id}', [ProductController::class, 'update']);
     Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
