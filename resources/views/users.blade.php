@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4 mt-5">
-            <h1>User List</h1>
+            <h1>User Lidfsst</h1>
             @can('product add')
             <div class="col-md-4"><a href="{{url('/users/create')}}"><button class="btn btn-primary">Insert</button></a></div>
             @endcan

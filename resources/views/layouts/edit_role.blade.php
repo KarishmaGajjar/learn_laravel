@@ -2,10 +2,7 @@
 @section('content')
        <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Roles</h4>
-
-              <!-- Basic Layout & Basic with Icons -->
               <div class="row">
-                <!-- Basic Layout -->
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -32,7 +29,6 @@
                           </div>
                           @endforeach
                         </div>
-
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Update</button>

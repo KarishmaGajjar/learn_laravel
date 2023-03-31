@@ -7,8 +7,7 @@
             <h1>Product Data</h1>
             <form method="post" action="/role/update/{{$role->id}}">
                 @csrf
-
-             <div class="row">
+              <div class="row">
                  <div class="col-md-6">
                     <label>Role Name</label>
                     <input id="product_id" type="text" class="form-control" name="name" value="{{$role->name}}">
@@ -21,12 +20,6 @@
                     @endforeach
                  </div>
             </div>
-
-              <div class="row">
-
-            </div>
-
-
             <div class="row">
                 <div class="col-md">
                     <button class="btn btn-success float-end mt-3" id="btnsubmit">Submit</button>

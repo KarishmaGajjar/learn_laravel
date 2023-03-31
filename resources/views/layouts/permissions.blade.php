@@ -2,11 +2,8 @@
 @section('content')
  <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Permissions</h4>
-
-              <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">Permissions List <br>@can('create')<a href="/permissions/create"><button class="btn btn-primary" type="submit">Add new Permission</button></a>@endcan</h5>
-
+                <h5 class="card-header"> <br>@can('create')<a href="/permissions/create"><button class="btn btn-primary" type="submit">Add new Permission</button></a>@endcan</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
@@ -14,7 +11,6 @@
                         <th>id</th>
                         <th>Roles</th>
                        @canany(['edit', 'create'])<th>Actions</th>@endcanany
-                       
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

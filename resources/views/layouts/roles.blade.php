@@ -1,9 +1,7 @@
 @extends('index')
 @section('content')
  <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span>Roles</h4>
-
-              <!-- Basic Bootstrap Table -->
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Roles</h4>
               <div class="card">
                 <h5 class="card-header"> <br>  @can('create')<a href="roles/create"><button class="btn btn-primary" type="submit">Add new role</button>@endcan</a></h5>
 

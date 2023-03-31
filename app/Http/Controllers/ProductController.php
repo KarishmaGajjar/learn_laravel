@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use Yajra\DataTables\DataTables;
+use Session;
 
 
 class ProductController extends Controller
@@ -18,7 +19,10 @@ class ProductController extends Controller
 
     public function index(Request $request){
       $categories=Category::get();
-        if ($request->ajax()) {
+      //  $prod=Product::select('products.*')->leftJoin('category','products.category','=','category.id')->get();
+       //return $product = Product::with('category')->whereRelation('category','product.category')->get();
+       //return $prod->category->name;
+      if ($request->ajax()) {
             $product = Product::get();
             return Datatables::of($product)
                     ->addIndexColumn()
@@ -35,6 +39,11 @@ class ProductController extends Controller
                         }
                         return $btn;
                     })
+                    ->addColumn('status',function($product){
+                            $status='';
+                            $status.= '<a href="javascript:void(0)" class="btn btn-icon btn-secondary product-status" id="product-status" data-id="'.$product->id.'"><i class="bx bx-edit-alt me-2"></i></a>';
+                            return $status;
+                        })
 
                     ->rawColumns(['status','action'])
                     ->make(true);
@@ -75,6 +84,9 @@ class ProductController extends Controller
              Product::updateOrCreate(['id' => $request->id],
             ['product_name' => $request->product_name, 'product_desc' => $request->product_desc,'category' => $request->category]);
             return response()->json(['success'=>'Post saved successfully.']);
+            Session::flash('success', 'File has been uploaded successfully!');
+            return View::make('include/flash');
+
         }
         else{
             return view('layouts.blank');
