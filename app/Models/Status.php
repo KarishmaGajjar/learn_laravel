@@ -1,22 +1,21 @@
 <?php
 
 namespace App\Models;
-use App\Models\Product;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Product;
 
-class Category extends Model
+class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'name'
-    ];
-    protected $table = 'category';
+    protected $fillable=['status'];
+    protected $table='status';
 
-    public function product(): HasMany
+       public function product(): HasMany
     {                                        //foriegn_key,primary_key
-        return $this->hasmany(Product::class,'category','id');
+        return $this->hasmany(Product::class,'status','id');
     }
 }

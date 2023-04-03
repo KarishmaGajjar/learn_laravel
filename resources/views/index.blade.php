@@ -4,7 +4,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-              @include('include.flash')
+
      @yield('content')
             <!-- / Content -->
 

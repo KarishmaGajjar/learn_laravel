@@ -58,9 +58,15 @@
                                         @foreach($categories as $category)
                                           <option value="{{$category->id}}">{{$category->name}}</option>
                                           @endforeach
-                                          <option value="2">computer</option>
-
-                                        </select>
+                                      </select>
+                                  </div>
+                                   <label class="col-sm-2 col-form-label" for="category">Status</label>
+                                  <div class="col-sm-4">
+                                    <select class="dropdown-item" name="status" id="status">
+                                        @foreach($statuses as $status)
+                                          <option value="{{$status->id}}">{{$status->status}}</option>
+                                          @endforeach
+                                     </select>
                                   </div>
                                 </div>
                                 <div class="row justify-content-end">
@@ -87,8 +93,8 @@
         columns: [
             {data: 'product_name', name: 'product_name'},
             {data: 'product_desc', name: 'product_desc'},
-            {data: 'category', name: 'category'},
-            {data: 'status', name: 'status'},
+            {data: 'category.name', name: 'category'},
+            {data: 'status.status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -109,7 +115,6 @@
           success:function (data) {
             $('#add-form').trigger("reset");
             $('#ajaxModel').modal('hide');
-            $('div.flash-message').html(data);
             $('.data-table').DataTable().ajax.reload();
           }
       });
