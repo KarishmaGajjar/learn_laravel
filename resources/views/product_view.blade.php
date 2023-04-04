@@ -18,6 +18,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+
                     </tbody>
                   </table>
                 </div>
@@ -55,14 +56,16 @@
                                   <label class="col-sm-2 col-form-label" for="category">Category</label>
                                   <div class="col-sm-4">
                                       <select class="dropdown-item" name="category" id="category">
+                                        <option></option>
                                         @foreach($categories as $category)
                                           <option value="{{$category->id}}">{{$category->name}}</option>
                                           @endforeach
                                       </select>
                                   </div>
-                                   <label class="col-sm-2 col-form-label" for="category">Status</label>
+                                   <label class="col-sm-2 col-form-label" for="status">Status</label>
                                   <div class="col-sm-4">
                                     <select class="dropdown-item" name="status" id="status">
+                                      <option></option>
                                         @foreach($statuses as $status)
                                           <option value="{{$status->id}}">{{$status->status}}</option>
                                           @endforeach
@@ -100,6 +103,9 @@
     });
 
     $('#createproduct').click(function(){
+      $('#add-form').trigger('reset');
+      $("input").prop('disabled', false);
+      $('option:selected').prop("selected",false);
       $('#id').val('');
       $('#modelHeading').html('Add Product');
       $('#ajaxModel').modal('show');
@@ -121,16 +127,26 @@
     });
 
    $('body').on('click', '#edit-product', function () {
-      var id = $(this).data('id');
+      var id = $(this).data('id');//from button of edit-> controller
+      //$("input").prop('disabled', true);
       $.get('/edit/' +id, function (data) {
-        console.log(data.category);
+        if(data.status==1){
+           $("input").prop('disabled', false);
+        }
+        else{
+            $("#product_name").prop('disabled', true);
+            $("#product_desc").prop('disabled', true);
+            $("#category").prop('disabled',true);
+        }
           $('#modelHeading').html("Edit Product");
           $('#ajaxModel').modal('show');
           $('#id').val(data.id);
           $('#product_name').val(data.product_name);
           $('#product_desc').val(data.product_desc);
           $('#ajaxModel').find('select[name="category"] option[value="' + data.category + '"]').attr('selected', true);
-          $('#ajaxModel').find('select[name="category"]').selectpicker('refresh');
+          //$('#ajaxModel').find('select[name="category"]').selectpicker('refresh');
+          $('#ajaxModel').find('select[name="status"] option[value="' + data.status + '"]').attr('selected', true);
+          //  $('#ajaxModel').find('select[name="status"]').selectpicker('refresh');
       })
    });
 

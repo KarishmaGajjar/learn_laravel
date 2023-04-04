@@ -11,7 +11,8 @@ class RoleController extends Controller
     public function index(){
         if(auth()->user()->can('view')){
         $roles=Role::get();
-        return view('layouts.roles',compact('roles'));
+        $permissions=Permission::get();
+        return view('layouts.roles',compact('roles','permissions'));
         }
         else{
             return view('layouts.blank');
@@ -34,7 +35,7 @@ class RoleController extends Controller
             $role = Role::create(['name' => $request->input('name')]);
             $role->givepermissionTo($request->input('permission'));
             $role->save();
-            return redirect()->route('roles');
+            return response()->json(['success'=>'Product saved successfully.']);
         }
         else{
             return view('layouts.blank');

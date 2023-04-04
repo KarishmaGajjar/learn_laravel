@@ -44,7 +44,7 @@ class ProductController extends Controller
                     //         return $status;
                     //     })
 
-                    ->rawColumns(['status','action'])
+                     ->rawColumns(['action'])
                     ->make(true);
                 }
         return view('product_view',compact('categories','statuses'));
@@ -85,8 +85,7 @@ class ProductController extends Controller
                                        'status'=>$request->status
                                      ]);
 
-            return response()->json(['success'=>'Post saved successfully.']);
-
+         return response()->json(['success'=>'Product saved successfully.']);
 
         }
         else{
