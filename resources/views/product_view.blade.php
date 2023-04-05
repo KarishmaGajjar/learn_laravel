@@ -146,7 +146,6 @@
           $('#ajaxModel').find('select[name="category"] option[value="' + data.category + '"]').attr('selected', true);
           //$('#ajaxModel').find('select[name="category"]').selectpicker('refresh');
           $('#ajaxModel').find('select[name="status"] option[value="' + data.status + '"]').attr('selected', true);
-          //  $('#ajaxModel').find('select[name="status"]').selectpicker('refresh');
       })
    });
 

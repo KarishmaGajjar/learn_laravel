@@ -53,10 +53,12 @@ class RoleController extends Controller
 
     public function edit($id){
         if(auth()->user()->can('edit')){
-            $role=Role::find($id);
+            $role=Role::with('permissions')->find($id);
             $permissions=Permission::all();
             //return $role->permissions;
-            return view('layouts.edit_role',compact('role','permissions'));
+            return
+             view('layouts.edit_role',compact('role','permissions'));
+            return response()->json($role);
             }
             else{
                 return view('layouts.blank');

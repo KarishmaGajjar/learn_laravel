@@ -31,9 +31,10 @@ class permissionController extends Controller
         $validate=$request->validate([
             'name'=>'required'
         ]);
-        $permissions = Permission::create(['name' => $request->input('name')]);
+        $permissions = Permission::updateOrCreate(['id'=>$request->input('id')],['name' => $request->input('name')]);
        // $role->syncPermissions($request->input('permission'));
-        return redirect()->route('permissions');
+        // return redirect()->route('permissions');
+        return response()->json();
         }
         else{
         return view('layouts.blank');
@@ -42,7 +43,8 @@ class permissionController extends Controller
        public function edit($id){
         if(auth()->user()->can('edit')){
            $permission=Permission::find($id);
-          return view('layouts.edit_permission',compact('permission'));
+          // return view('layouts.edit_permission',compact('permission'));
+           return response()->json($permission);
            }
            else{
         return view('layouts.blank');
@@ -63,7 +65,7 @@ class permissionController extends Controller
       public function delete(Request $request,$id){
         if(auth()->user()->can('delete')){
             $permission=Permission::where('id',$id)->delete($id);
-            return redirect()->route('permissions');
+            return response()->json(['success'=>'Product saved successfully.']);
      }
      else{
         return view('layouts.blank');

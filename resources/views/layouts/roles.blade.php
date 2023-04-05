@@ -20,9 +20,9 @@
                         <td>{{$role->id}}</td>
                         <td><a href="roles/edit/{{$role->id}}">{{$role->name}}</a></td>
                        @can('edit') <td>
-                         <a class="btn btn-icon btn-secondary" href="roles/edit/{{$role->id}}"><i class="bx bx-edit-alt me-2"></i></a
+                         <a class="btn btn-icon btn-secondary" id="editrole" href="roles/edit/{{$role->id}}" data-id="{{$role->id}}"><i class="bx bx-edit-alt me-2"></i></a
                               >@endcan
-                         @can('delete') <a class="btn btn-icon btn-danger" href="roles/delete/{{$role->id}}"><i class="bx bx-trash me-2"></i></a
+                         @can('delete') <a class="btn btn-icon btn-danger" href="javascript:void(0)" id="deleterole" data-id="{{$role->id}}"><i class="bx bx-trash me-2"></i></a
                               >@endcan
                           </div>
                         </td>
@@ -35,18 +35,18 @@
               </div>
           </div>
           {{-- Modal --}}
-  <div class="modal fade" id="roleModel" aria-hidden="true">
+          <div class="modal fade" id="roleModel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                           <div class="modal-header">
                               <h4 class="modal-title" id="modelHeading"></h4>
                           </div>
                           <div class="modal-body">
-                                  <form method="POST"  id="add-form">
+                                  <form method="POST" id="add-form">
                                 @csrf
                                 <input type="hidden" name="id" id="id">
                                 <div class="row mb-3">
-                                  <label class="col-sm-2 col-form-label" for="product_name">Name</label>
+                                  <label class="col-sm-2 col-form-label" for="name">Name</label>
                                   <div class="col-sm-10">
                                     <input type="text" class="form-control" id="name" name="name" />
                                     @error('name')
@@ -59,8 +59,8 @@
                           @foreach($permissions as $permission)
                           <div class="col-sm-10 ms-5">
                               <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="{{$permission->id}}" id="defaultCheck1" name="permission[]"/>
-                            <label class="form-check-label" for="defaultCheck1"> {{$permission->name}} </label>
+                            <input class="form-check-input" type="checkbox" value="{{$permission->id}}" id="permission" name="permission[]"/>
+                            <label class="form-check-label" for="defaultCheck1">{{$permission->name}}</label>
                           </div>
                           </div>
                           @endforeach
@@ -75,9 +75,11 @@
                       </div>
                   </div>
                 </div>
+          {{--edit model--}}
     <script type="text/javascript">
       $(function(){
           $('#addrole').on('click', function () {
+              $('#add-form').trigger('reset');
               $('modelHeading').html('Add Role');
               $('#roleModel').modal('show');
           });
@@ -95,7 +97,25 @@
               }
             });
           });
-
+          $('body').on('click','#deleterole',function(){
+            var id=$(this).data('id');
+            $.ajax({
+              url:"roles/delete/"+id,
+              type:"get",
+              success:function(data){
+                $("#table").load(window.location + " #table");
+             }
+            });
+          });
+           // $('body').on('click', '#editrole', function () {
+           //  var id=$(this).data('id');
+           //  console.log(id);
+           //  $.get('roles/edit/'+id,function(data){
+           //    $('#modelHeading').html('Edit Role');
+           //    $('#roleModel').modal('show');
+           //    $('#name').val(data.name);
+           //  })
+           // });
       });
     </script>
 @endsection
