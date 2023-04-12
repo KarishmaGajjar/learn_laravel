@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\Gate;
+use App\Models\Demo;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -21,6 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('admin', function(User $user) {
+                //return $user->hasPermissionTo('create');
+                return $user->hasRole('admin');
+        });
+        //  Gate::define('delete_', function(User $user) {
+        //     return $user=="admin";
+        // });
     }
 }

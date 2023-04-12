@@ -9,7 +9,7 @@
                     <thead>
                       <tr>
                         <th>id</th>
-                        <th>Roles</th>
+                        <th>Permissions</th>
                        @canany(['edit', 'create'])<th>Actions</th>@endcanany
                       </tr>
                     </thead>
@@ -32,9 +32,7 @@
                 </div>
               </div>
               </div>
-
               {{-- modal --}}
-
            <div class="modal fade" id="permissionModal" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -78,6 +76,7 @@
                   $.get('permissions/edit/'+id,function(data){
                     console.log(data);
                     $('#permissionModal').modal('show');
+                    $('#modelHeading').html('Edit Permission');
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                   })

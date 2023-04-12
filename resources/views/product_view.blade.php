@@ -1,11 +1,22 @@
-
 @extends('index')
 @section('content')
  <div class="container-xxl flex-grow-1 container-p-y">
- <div class="flash-message"></div>
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Products</h4>
               <div class="card">
+                <div class="row">
+                  <div class="col-md-4">
                 <h5 class="card-header"> <br>  @can('product add')<a href="javascript:void(0)" id="createproduct" class="btn btn-primary" type="submit">Add Product</button>@endcan</a></h5>
+              </div>
+              <div class="col-md-4 card-header mt-5">
+                 <label class="col-sm-2 col-form-label" for="product_desc"><b>Status:</b></label>
+                <select class="dropdown-item" name="status_search" id="status_search">
+                  <option>please select</option>
+                    @foreach($statuses as $status)
+                      <option value="{{$status->id}}">{{$status->status}}</option>
+                      @endforeach
+                 </select>
+              </div>
+            </div>
                 <div class="table-responsive text-nowrap">
                   <table class="table data-table"  id="data-table">
                     <thead>
@@ -84,15 +95,13 @@
                 </div>
               </div>
           </div>
-
-
 <script type="text/javascript">
   $(function () {
-    $('.success').hide();
-    var table = $('.data-table').DataTable({
+      var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('products.index') }}",
+        ajax: { url:"{{ route('products.index') }}"
+                },
         columns: [
             {data: 'product_name', name: 'product_name'},
             {data: 'product_desc', name: 'product_desc'},
@@ -102,7 +111,7 @@
         ]
     });
 
-    $('#createproduct').click(function(){
+   $('#createproduct').click(function(){
       $('#add-form').trigger('reset');
       $("input").prop('disabled', false);
       $('option:selected').prop("selected",false);
@@ -111,12 +120,12 @@
       $('#ajaxModel').modal('show');
     });
 
-    $('#save-data').click(function(e){
+   $('#save-data').click(function(e){
       e.preventDefault();
       $.ajax({
-          data:$('#add-form').serialize(),
           url:"{{route('products.create')}}",
           type:"POST",
+          data:$('#add-form').serialize(),
           datatype:"json",
           success:function (data) {
             $('#add-form').trigger("reset");
@@ -149,7 +158,7 @@
       })
    });
 
-   $('body').on('click','.product-delete',function(){
+   $('body').on('click',' .product-delete',function(){
       var id=$(this).data('id');
       confirm("Do you want to delete this product");
       $.ajax({
@@ -158,6 +167,19 @@
         success:function(data){
           $('.data-table').DataTable().ajax.reload();
         }
+      });
+   });
+
+   $('#status_search').change(function(){
+     var search_status=$(this).val();
+     console.log(search_status);
+     $.ajax({
+          url:"{{route('products.index')}}",
+          type:"GET",
+          data:{status_id:search_status},
+          datatype:"json",
+          success:function () {
+          }
       });
    });
   });
