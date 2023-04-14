@@ -7,8 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Status;
-
-
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
@@ -19,16 +18,10 @@ class ProductController extends Controller
         $categories=Category::get();
         $statuses=Status::get();
         $category=Category::with('product')->get();
-        //$product=Product::with('category:id,name')->get();
-      if ($request->ajax()) {
-            if(!empty($request->status_id)){
-                $product=Product::with('category','status')->where('status',$request->status_id)->get();
-            }
-            else{
-                 $product=Product::with('category','status')->get();
-            }
-
-            return Datatables::of($product)
+               //$product=Product::with('category:id,name')->get();
+        if ($request->ajax()) {
+                   $product=Product::with('category','status')->get();
+                  return Datatables::of($product)
                     ->addIndexColumn()
                     ->addColumn('action', function($product){
                         $btn='';
@@ -45,9 +38,8 @@ class ProductController extends Controller
                     })
                      ->rawColumns(['action'])
                     ->make(true);
-                }
-
-        return view('product_view',compact('categories','statuses'));
+        }
+          return view('product_view',compact('categories','statuses'));
     }
     public function create(){
         if(auth()->user()->can('product add')){

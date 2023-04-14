@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-//Auth::user() & auth()->user() works same but Auth:: won't work in edit,delte,update function
+
+ //Auth::user() & auth()->user() works same but Auth:: won't work in edit,delte,update function
+
 class RoleController extends Controller
 {
     public function index(){

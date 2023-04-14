@@ -31,6 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/error',function(){
     return view('error');
 })->name('error');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/product', [ProductController::class, 'index'])->middleware('auth')->name('products.index');
     Route::get('/create', [ProductController::class, 'create']);
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/status/{id}', [ProductController::class, 'status']);
     //user
     Route::get('/users', [userController::class, 'index'])->name('users')->withoutMiddleware('auth');
-    Route::get('users/create', [userController::class, 'create'])->name('users');
+    Route::get('users/create', [userController::class, 'create']);
     Route::post('users/insert', [userController::class, 'insert']);
     Route::get('users/edit/{id}', [userController::class, 'edit']);
     Route::post('users/update/{id}', [userController::class, 'update']);
@@ -69,7 +70,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('permissions/delete/{id}', [permissionController::class, 'delete']);
 
     //demo
-    Route::get('/demo',[DemoController::class,'index'])->name('demo.index');
+    Route::get('/demo',[DemoController::class,'index'])->name('demo.index')->middleware('rolesCheck');
     Route::post('/demo/insert',[DemoController::class,'insert']);
     Route::get('/demo/edit/{id}',[DemoController::class,'edit'])->middleware('can:create Permission');
     Route::get('/demo/delete/{id}',[DemoController::class,'delete']);

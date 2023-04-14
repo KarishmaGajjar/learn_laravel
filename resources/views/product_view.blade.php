@@ -2,14 +2,14 @@
 @section('content')
  <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Products</h4>
-              <div class="card">
+              <div class="card p-4">
                 <div class="row">
                   <div class="col-md-4">
-                <h5 class="card-header"> <br>  @can('product add')<a href="javascript:void(0)" id="createproduct" class="btn btn-primary" type="submit">Add Product</button>@endcan</a></h5>
+                <h5 class="card-header"><br>  @can('product add')<a href="javascript:void(0)" id="createproduct" class="btn btn-primary" type="submit">Add Product</button>@endcan</a></h5>
               </div>
               <div class="col-md-4 card-header mt-5">
                  <label class="col-sm-2 col-form-label" for="product_desc"><b>Status:</b></label>
-                <select class="dropdown-item" name="status_search" id="status_search">
+                <select class="dropdown-item" name="status_search" id="status_search" data-column='0'>
                   <option>please select</option>
                     @foreach($statuses as $status)
                       <option value="{{$status->id}}">{{$status->status}}</option>
@@ -173,14 +173,16 @@
    $('#status_search').change(function(){
      var search_status=$(this).val();
      console.log(search_status);
-     $.ajax({
-          url:"{{route('products.index')}}",
-          type:"GET",
-          data:{status_id:search_status},
-          datatype:"json",
-          success:function () {
-          }
-      });
+     table.column($(this).val()).search($(this).val()).draw();
+    // $.ajax({
+      //     url:"{{route('products.index')}}",
+      //     type:"GET",
+      //     data:{status_id:search_status},
+      //     datatype:"json",
+      //     success:function () {
+      //       table.draw();
+      //     }
+      // });
    });
   });
 </script>

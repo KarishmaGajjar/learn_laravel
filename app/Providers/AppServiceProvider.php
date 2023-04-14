@@ -14,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-
     }
 
     /**
@@ -22,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+            Gate::define('add-user',function($user){
+                return $user->hasRole('admin');
+            });
+            Gate::define('delete-user',function(User $user){
+                return $user->hasRole('admin');
+            });
     }
 }

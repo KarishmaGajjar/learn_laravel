@@ -7,6 +7,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 use DB;
 class userController extends Controller
 {
@@ -15,12 +16,21 @@ class userController extends Controller
         return view('layouts.user',compact('users'));
         }
         public function create(){
-            if(auth()->user()->hasPermissionTo('create')){
+            if(Gate::allows('add-user')){
                 return view('user_insert');
             }
             else{
-             return view('layouts.blank');
+             return redirect('error');
             }
+        }
+        public function delete(Request $request,$id){
+             if(Gate::denies('delete-user')){
+               return redirect('error');
+             }
+             else{
+                  $user=User::where('id',$id)->delete($id);
+                  return redirect()->route('users');
+             }
         }
         public function insert(Request $request){
             if(auth()->user()->hasPermissionTo('create')){
@@ -55,7 +65,7 @@ class userController extends Controller
        if(auth()->user()->can('assign role')||auth()->user()->hasRole('admin')){
            $user=User::find($id);
            $roles=Role::get();
-            return view('assign_role',compact('user','roles'));
+           return view('assign_role',compact('user','roles'));
         }
          else{
             return view('layouts.blank');
@@ -100,18 +110,5 @@ class userController extends Controller
         return redirect()->route('users');
         }
     }
-      public function delete(Request $request,$id){
-         if(auth()->user()->can('delete')){
-            $user=User::where('id',$id)->delete($id);
-            return redirect()->route('users');
-         }
-         else{
-            return view('layouts.blank');
-         }
-    }
-    //    public function remove_role(Request $request,$id){
-    //      return  $user=User::find($id);
-    //      $user->removeRole($request->input('role'));
-    //      return redirect()->route('users');
-    // }
+
 }

@@ -3,7 +3,7 @@
  <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Users List</h4>
               <div class="card">
-                <h5 class="card-header">@can('create')<a href="/users/create"><button class="btn btn-primary" type="submit">Add new user</button></a>@endcan</h5>
+                <h5 class="card-header">@can('add-user')<a href="/users/create"><button class="btn btn-primary" type="submit">Add new user</button></a>@endcan</h5>
 
                 <div class="table-responsive text-nowrap">
                   <table class="table">
@@ -15,7 +15,7 @@
                            <th>Roles</th>
                            @role('admin')<th>assign Role</th>@endrole
                            @role('admin')<th>give permission</th>@endrole
-                           @canany(['edit', 'create'])<th>Action</th>@endcanany
+                           @canany(['edit', 'add-user'])<th>Action</th>@endcanany
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
