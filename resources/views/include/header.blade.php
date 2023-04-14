@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -26,9 +26,9 @@
       rel="stylesheet"
     />
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" defer>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" defer>
+   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{url('assets/vendor/fonts/boxicons.css')}}" />
     <!-- Core CSS -->
@@ -39,19 +39,16 @@
     <link rel="stylesheet" href="{{url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
 
-
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="{{url('assets/vendor/js/helpers.js')}}"></script>
 
     <script src="{{url('assets/js/config.js')}}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js" defer></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
-
-   <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{url('https://code.jquery.com/jquery-3.6.4.min.js')}}"></script>
+  <script src="{{url('https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')}}" defer></script>
+   {{-- <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js" defer></script> --}}
  {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
   </head>
   <body>
@@ -161,14 +158,20 @@
             </li>
             <li class="menu-item">
               <a href="/product" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
+                <i class="menu-icon tf-icons bx bxl-product-hunt"></i>
                 <div data-i18n="Basic">Product</div>
               </a>
             </li>
-              <li class="menu-item">
+            <li class="menu-item">
               <a href="/demo" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
+                <i class="menu-icon tf-icons bx bxs-polygon"></i>
                 <div data-i18n="Basic">demo</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/datatable" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-table'></i>
+                <div data-i18n="Basic">Datatable</div>
               </a>
             </li>
           </ul>

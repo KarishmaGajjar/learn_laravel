@@ -7,10 +7,12 @@
                   <div class="col-md-4">
                 <h5 class="card-header"><br>  @can('product add')<a href="javascript:void(0)" id="createproduct" class="btn btn-primary" type="submit">Add Product</button>@endcan</a></h5>
               </div>
-              <div class="col-md-4 card-header mt-5">
-                 <label class="col-sm-2 col-form-label" for="product_desc"><b>Status:</b></label>
-                <select class="dropdown-item" name="status_search" id="status_search" data-column='0'>
-                  <option>please select</option>
+            </div>
+            <div class="row">
+                  <div class="col-md-4 card-header">
+                 <label class="col-form-label" ><b>Status:</b></label>
+                <select class="dropdown-item" name="status_search" id="status_search">
+                  <option value="0">Search by status</option>
                     @foreach($statuses as $status)
                       <option value="{{$status->id}}">{{$status->status}}</option>
                       @endforeach
@@ -97,10 +99,13 @@
           </div>
 <script type="text/javascript">
   $(function () {
-      var table = $('.data-table').DataTable({
+      var table =  $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: { url:"{{ route('products.index') }}"
+        ajax: { url:"{{ route('products.index') }}",
+                data:function(d){
+                  d.status=$('#status_search').val();
+                  }
                 },
         columns: [
             {data: 'product_name', name: 'product_name'},
@@ -171,18 +176,7 @@
    });
 
    $('#status_search').change(function(){
-     var search_status=$(this).val();
-     console.log(search_status);
-     table.column($(this).val()).search($(this).val()).draw();
-    // $.ajax({
-      //     url:"{{route('products.index')}}",
-      //     type:"GET",
-      //     data:{status_id:search_status},
-      //     datatype:"json",
-      //     success:function () {
-      //       table.draw();
-      //     }
-      // });
+      $('.data-table').DataTable().ajax.reload();
    });
   });
 </script>

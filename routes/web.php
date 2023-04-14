@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\permissionController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\DatatableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,8 +73,10 @@ Route::group(['middleware' => ['auth']], function() {
     //demo
     Route::get('/demo',[DemoController::class,'index'])->name('demo.index')->middleware('rolesCheck');
     Route::post('/demo/insert',[DemoController::class,'insert']);
-    Route::get('/demo/edit/{id}',[DemoController::class,'edit'])->middleware('can:create Permission');
+    Route::get('/demo/edit/{id}',[DemoController::class,'edit']);
     Route::get('/demo/delete/{id}',[DemoController::class,'delete']);
+    //Datatable
+    Route::get('/datatable',[DatatableController::class,'index'])->name('datatable');
 });
 
 

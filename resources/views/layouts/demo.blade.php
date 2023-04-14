@@ -12,6 +12,7 @@
                   <table class="table data-table"  id="data-table">
                     <thead>
                       <tr>
+                        <th>Index</th>
                         <th>id</th>
                         <th>name</th>
                         <th>city</th>
@@ -70,18 +71,17 @@
 <script type="text/javascript">
     $(function(){
         var table=$('.data-table').DataTable({
-            processing:true,
-            serverSide:true,
+
             ajax: { url:"{{ route('demo.index') }}"
                 },
             columns:[
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data:'id',name:'id'},
                     {data:'name',name:'name'},
                     {data:'city.city',name:'city'},
-                    {data:'action',name:'action',orderable:false,searchable:false}
+                    {data:'action',name:'action'}
                     ]
         });
-
         $('#create').on('click',function(){
             $('#add-form').trigger('reset');
             $('#Model').modal('show');

@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Status;
+use App\Models\Demo;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
@@ -20,9 +21,15 @@ class ProductController extends Controller
         $category=Category::with('product')->get();
                //$product=Product::with('category:id,name')->get();
         if ($request->ajax()) {
+            // dd($request->status);
                    $product=Product::with('category','status')->get();
+                   if(empty($request->get('status'))&&$request->get('status')=='0'){
+                    $product=Product::with('category','status')->get();
+                   }
+                   else{
+                        $product=Product::with('category','status')->where('status',$request->get('status'))->get();
+                   }
                   return Datatables::of($product)
-                    ->addIndexColumn()
                     ->addColumn('action', function($product){
                         $btn='';
                         if(auth()->user()->can('product edit')){
@@ -30,13 +37,12 @@ class ProductController extends Controller
                         ';
                         }
                         if(auth()->user()->can('product delete')){
-                        //$btn.='<a href="'.route('products.delete',$product->id).'" class="btn btn-icon btn-danger product-delete" data-id="'.$product->id.'"><i class="bx bx-trash me-2 delete-product"></i></a>';
+                        // <a href="'.route('products.delete',$product->id).'
                         $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-danger product-delete" data-id="'.$product->id.'"><i class="bx bx-trash me-2 delete-product"></i></a>';
-                        //$btn = '<a href="{{$product->id}}" class="btn btn-icon btn-secondary"><i class="bx bx-edit-alt me-2"></i></a>';
                         }
                         return $btn;
                     })
-                     ->rawColumns(['action'])
+                    ->rawColumns(['action'])
                     ->make(true);
         }
           return view('product_view',compact('categories','statuses'));
@@ -124,6 +130,5 @@ class ProductController extends Controller
             return view('layouts.blank');
         }
     }
-
 }
 
