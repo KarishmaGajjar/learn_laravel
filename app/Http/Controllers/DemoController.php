@@ -19,23 +19,12 @@ class DemoController extends Controller
 
         if($request->ajax()){
         $data=Demo::with('city')->get();
-            // return DataTables::of($data)
-            //         ->addIndexColumn()
-            //         ->addColumn('action',function($data){
-            //             $btn='';
-            //             $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-secondary edit" data-id="'.$data->id.'"><i class="bx bx-edit-alt me-2"></i></a>';
-            //           //  if(auth()->user()->can('delete_')){
-            //              $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-danger delete" data-id="'.$data->id.'"><i class="bx bx-trash-alt me-2"></i></a>';
-            //            // }
-            //             return $btn;
-            //         })
-            //         ->rawColumns(['action'])
-            //         ->make(true);
                 return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action',function($data){
                     $btn='';
                     $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-secondary edit" data-id="'.$data->id.'"><i class="bx bx-edit-alt me-2"></i></a>';
+                     $btn.='<a href="javascript:void(0)" class="btn btn-icon btn-danger delete" data-id="'.$data->id.'"><i class="bx bx-trash-alt me-2"></i></a>';
                     return $btn;
                 })->rawColumns(['action'])->make(true);
             }

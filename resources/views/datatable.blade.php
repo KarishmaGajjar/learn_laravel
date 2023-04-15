@@ -12,7 +12,6 @@
                            <th>Name</th>
                            <th>city</th>
                            <th>extra</th>
-                           <th>another</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -32,8 +31,7 @@
                          {data:'id',name:'id',searchable:false},
                          {data:'name',name:'name',searchable:true},
                          {data:'city',name:'city',searchable:false},
-                         {data:'extra',name:'extra',searchable:false},
-                         {data:'another',name:'another',orderable:true,searchable:false}
+                         {data:'extra',name:'extra',searchable:false}
                         ]
         });
     });

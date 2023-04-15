@@ -20,7 +20,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-
+                            {{-- column data --}}
                     </tbody>
                   </table>
                 </div>
@@ -57,7 +57,6 @@
                                   </div>
                                   </div>
                                 </div>
-
                                 <div class="row justify-content-end">
                                   <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary" id="save-data">Save</button>
@@ -71,7 +70,6 @@
 <script type="text/javascript">
     $(function(){
         var table=$('.data-table').DataTable({
-
             ajax: { url:"{{ route('demo.index') }}"
                 },
             columns:[
@@ -100,7 +98,6 @@
                $('#id').val(data.id);
                 $('#name').val(data.name);
                  $('#Model').find('select[name="city"] option[value="' + data.city + '"]').attr('selected', true);
-                //$.val(data.city);
             })
         });
 

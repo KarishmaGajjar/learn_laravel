@@ -8,12 +8,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
+use App\DataTables\UsersDataTable;
 use DB;
 class userController extends Controller
 {
-      public function index(){
-        $users=User::with('permissions')->get();
-        return view('layouts.user',compact('users'));
+      public function index(UsersDataTable $dataTable){
+          return $dataTable->render('users');
         }
         public function create(){
             if(Gate::allows('add-user')){
