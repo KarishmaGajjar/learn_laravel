@@ -25,10 +25,10 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
-    {{-- done--}}<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="{{url('assets/datatable/datatables.min.css')}}" />
+
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{url('assets/vendor/fonts/boxicons.css')}}" />
     <!-- Core CSS -->
@@ -39,16 +39,18 @@
     <link rel="stylesheet" href="{{url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
 
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- Page CSS -->
 
     <script src="{{url('assets/vendor/js/helpers.js')}}"></script>
+    <script src="{{url('assets/jquery/jquery-3.6.4.min.js')}}"></script>
     <script src="{{url('assets/js/config.js')}}"></script>
-    <script src="{{url('https://code.jquery.com/jquery-3.6.4.min.js')}}"></script>
-    <script src="{{url('https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')}}" defer></script>
+
+    {{-- <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js" defer></script> --}}
+
    {{-- <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js" defer></script> --}}
  {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+
   </head>
   <body>
     <!-- Layout wrapper -->

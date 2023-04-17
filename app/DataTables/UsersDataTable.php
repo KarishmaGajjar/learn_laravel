@@ -22,8 +22,11 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'users.action')
-            ->setRowId('id');
+            ->addColumn('action', function($data){
+                return 'action return';
+            })
+            ->setRowId('id')
+            ->addIndexColumn();
     }
 
     /**
@@ -43,17 +46,13 @@ class UsersDataTable extends DataTable
                     ->setTableId('users-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                    ->parameters([
+                        'dom'          => 'Bfrtip',
+                        'buttons'      => ['excel','csv','pdf','print','reset','reload'],
                     ]);
+
     }
 
     /**
@@ -63,16 +62,16 @@ class UsersDataTable extends DataTable
     {
 
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id','id'),
-            Column::make('name','name'),
-            Column::make('email','email'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                  // ->exportable(false)
+                  // ->printable(false)
+                  // ->width(60)
+                  // ->addClass('text-center'),
+                  // make('datatable column (data)')
+            //Column::make('DT_RowIndex')->title('Sr.No'),
+            Column::make('id')->title('UserId'),
+            Column::make('name'),
+            Column::make('email'),
+            Column::make('action')
         ];
     }
 
