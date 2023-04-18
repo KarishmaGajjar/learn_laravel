@@ -58,7 +58,7 @@
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label" for="product_desc">Description</label>
                                   <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="product_desc" name="product_desc" />
+                                    <input type="text" class="form-control" id="product_desc" name="product_desc"/>
                                     @error('product_desc')
                                         <span class="text-danger"> <strong></strong></span>
                                       @enderror
