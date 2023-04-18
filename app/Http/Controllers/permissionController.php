@@ -28,9 +28,11 @@ class permissionController extends Controller
      public function insert(Request $request)
     {
         if(auth()->user()->can('create')){
-        $validate=$request->validate([
-            'name'=>'required'
-        ]);
+            $validate=$request->validate([
+                 'name'=>'required'
+                ],[
+                    'name.required'=>'Name is required'
+                ]);
         $permissions = Permission::updateOrCreate(['id'=>$request->input('id')],['name' => $request->input('name')]);
        // $role->syncPermissions($request->input('permission'));
         // return redirect()->route('permissions');

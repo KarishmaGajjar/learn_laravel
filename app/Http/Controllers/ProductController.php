@@ -69,21 +69,15 @@ class ProductController extends Controller
             'category.required'=>"Please Enter Category",
             'status.required'=>"Please select status",
         ]);
-            // $product=new Product;
-            // $product->product_name=$request->input('product_name');
-            // $product->product_desc=$request->input('product_desc');
-            // $product->category=$request->input('category');
-            // $product->status=$request->input('status');
-            // $product->save();
-            //return redirect()->route('products.index');
-             Product::updateOrCreate(['id' => $request->id],
-                                     ['product_name' => $request->product_name,
-                                      'product_desc' => $request->product_desc,
-                                      'category' => $request->category,
-                                       'status'=>$request->status
+            exit();
+        $product=Product::updateOrCreate(['id' => $request->id],
+                                        ['product_name' => $request->product_name,
+                                         'product_desc' => $request->product_desc,
+                                         'category' => $request->category,
+                                          'status'=>$request->status
                                      ]);
+        return response()->json(['success'=>'Product saved successfully.']);
 
-         return response()->json(['success'=>'Product saved successfully.']);
         }
         else{
             return view('layouts.blank');

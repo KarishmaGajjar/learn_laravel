@@ -16,8 +16,8 @@
     <title>Roles & Permissions</title>
     <meta name="description" content=""/>
     <!-- Favicon -->
+       <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{url('assets/img/favicon/favicon.ico')}}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,13 +37,11 @@
     <link rel="stylesheet" href="{{url('assets/css/demo.css')}}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"/>
-    <link rel="stylesheet" href="{{url('assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
-
-
     <!-- Page CSS -->
 
     <script src="{{url('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{url('assets/jquery/jquery-3.6.4.min.js')}}"></script>
+    <script src="{{url('assets/js/jquery.validate.js')}}" defer></script>
     <script src="{{url('assets/js/config.js')}}"></script>
 
     {{-- <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js" defer></script> --}}

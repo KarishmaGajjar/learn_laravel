@@ -77,6 +77,7 @@
           {{--edit model--}}
     <script type="text/javascript">
       $(function(){
+        $('#add-form').validate();
           $('#addrole').on('click', function () {
               $('#add-form').trigger('reset');
               $('modelHeading').html('Add Role');

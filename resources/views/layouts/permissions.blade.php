@@ -46,8 +46,11 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" />
+                            <input type="text" class="form-control" id="name" name="name"/>
                           </div>
+                           @error('name')
+                                <span class="text-danger"> <strong>{{ $message }}</strong></span>
+                             @enderror
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
@@ -63,7 +66,11 @@
 
           <script type="text/javascript">
             $(function(){
-
+                // $('#permissionForm').validate({
+                //   rules:{
+                //     'name':{required:true}
+                //   }
+                // });
                 $('#addPermission').on('click',function(){
                     $('#modelHeading').html('Add Permission');
                     $('#permissionModal').modal('show');
