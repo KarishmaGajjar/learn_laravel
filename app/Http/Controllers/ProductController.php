@@ -69,7 +69,6 @@ class ProductController extends Controller
             'category.required'=>"Please Enter Category",
             'status.required'=>"Please select status",
         ]);
-            exit();
         $product=Product::updateOrCreate(['id' => $request->id],
                                         ['product_name' => $request->product_name,
                                          'product_desc' => $request->product_desc,
@@ -77,7 +76,6 @@ class ProductController extends Controller
                                           'status'=>$request->status
                                      ]);
         return response()->json(['success'=>'Product saved successfully.']);
-
         }
         else{
             return view('layouts.blank');
