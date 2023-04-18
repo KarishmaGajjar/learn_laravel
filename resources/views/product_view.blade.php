@@ -43,13 +43,13 @@
                               <h4 class="modal-title" id="modelHeading"></h4>
                           </div>
                           <div class="modal-body">
-                                  <form method="POST"  id="add-form">
-                                @csrf
+                              <form method="POST"  id="add-form">
+                                {{ csrf_field() }}
                                 <input type="hidden" name="id" id="id">
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label" for="product_name">Name</label>
                                   <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="product_name" name="product_name"/>
+                                    <input type="text" class="form-control" id="product_name" name="product_name" />
                                     @error('product_name')
                                         <span class="text-danger"> <strong></strong></span>
                                       @enderror
@@ -58,7 +58,7 @@
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label" for="product_desc">Description</label>
                                   <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="product_desc" name="product_desc"/>
+                                    <input type="text" class="form-control" id="product_desc" name="product_desc" />
                                     @error('product_desc')
                                         <span class="text-danger"> <strong></strong></span>
                                       @enderror
@@ -149,12 +149,12 @@
             $('#ajaxModel').modal('hide');
             $('.data-table').DataTable().ajax.reload();
           },
-          //  error: function (data) {
-          //   $.each(data.responseJSON.errors, function (i, error) {
-          //       var el = $(document).find('[name="'+i+'"]');
-          //       el.after($('<span style="color: red;">'+error[0]+'</span>'));
-          //   });
-          // }
+           error: function (data) {
+            $.each(data.responseJSON.errors, function (i, error) {
+                var el = $(document).find('[name="'+i+'"]');
+                el.after($('<span style="color: red;">'+error[0]+'</span>'));
+            });
+          }
        });
     });
 
