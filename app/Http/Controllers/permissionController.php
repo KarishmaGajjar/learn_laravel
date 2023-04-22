@@ -45,7 +45,6 @@ class permissionController extends Controller
        public function edit($id){
         if(auth()->user()->can('edit')){
            $permission=Permission::find($id);
-          // return view('layouts.edit_permission',compact('permission'));
            return response()->json($permission);
            }
            else{

@@ -48,6 +48,10 @@ class DemoController extends Controller
          return redirect('error');
      }
      else{
+        $validate=$request->validate([
+            'name'=>'required',
+            'city'=>'required'
+        ]);
          Demo::updateOrCreate(['id'=>$request->id],['name'=>$request->name,'city'=>$request->city]);
          return response()->json(["success"=>"dojnee"]);
      }
@@ -62,6 +66,4 @@ class DemoController extends Controller
         $data=Demo::where('id',$id)->delete($id);
         return response()->json();
     }
-
-
 }

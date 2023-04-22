@@ -77,10 +77,14 @@
           {{--edit model--}}
     <script type="text/javascript">
       $(function(){
-        $('#add-form').validate();
+        $('#add-form').validate({
+          rules:{
+            "name":{required:true}
+          }
+        });
           $('#addrole').on('click', function () {
               $('#add-form').trigger('reset');
-              $('modelHeading').html('Add Role');
+              $('#modelHeading').html('Add Role');
               $('#roleModel').modal('show');
           });
           $("#save-data").click(function(e){
@@ -90,10 +94,19 @@
               url: 'roles/insert',
               type: 'post',
               datatype:'json',
+              beforeSend:function(){
+                $(document).find('span').html('');
+              },
               success: function (data) {
                   $('#add-form').trigger('reset');
                   $('#roleModel').modal('hide');
                   $("#table").load(window.location + " #table");
+              },
+              error:function(data){
+                $.each(data.responseJSON.errors,function(el,error){
+                  var el=$(document).find('[name="'+el+'"]');
+                  el.after($('<span class=text-danger>'+error+'</span>'))
+                })
               }
             });
           });

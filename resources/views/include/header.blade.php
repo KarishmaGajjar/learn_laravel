@@ -16,7 +16,7 @@
     <title>Roles & Permissions</title>
     <meta name="description" content=""/>
     <!-- Favicon -->
-       <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{url('assets/img/favicon/favicon.ico')}}" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,7 +25,7 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> --}}
 
    <link rel="stylesheet" href="{{url('assets/datatable/datatables.min.css')}}" />
 
@@ -46,8 +46,8 @@
 
     {{-- <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js" defer></script> --}}
 
-   {{-- <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js" defer></script> --}}
- {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js" defer></script> --}}
+    {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
 
   </head>
   <body>
@@ -122,7 +122,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Status;
 use App\Models\Demo;
+use Validator;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
@@ -58,7 +59,8 @@ class ProductController extends Controller
     }
     public function insert(Request $request){
         if(auth()->user()->can('product add')){
-        $validate=$request->validate([
+
+        $validate= Validator::make($request->all(), [
             'product_name'=>'required',
             'product_desc'=>'required',
             'category'=>'required',
@@ -69,13 +71,18 @@ class ProductController extends Controller
             'category.required'=>"Please Enter Category",
             'status.required'=>"Please select status",
         ]);
-        $product=Product::updateOrCreate(['id' => $request->id],
+         if ($validate->passes()) {
+            $product=Product::updateOrCreate(['id' => $request->id],
                                         ['product_name' => $request->product_name,
                                          'product_desc' => $request->product_desc,
                                          'category' => $request->category,
                                           'status'=>$request->status
-                                     ]);
+                                        ]);
         return response()->json(['success'=>'Product saved successfully.']);
+        }
+         return response()->json(['error'=>$validator->errors()->all()]);
+        //first argument id.checks if id is empty or not.
+
         }
         else{
             return view('layouts.blank');

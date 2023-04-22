@@ -27,11 +27,11 @@
                         </td>
                       </tr>
                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
+                  </tbody>
+                </table>
               </div>
-              </div>
+            </div>
+          </div>
               {{-- modal --}}
            <div class="modal fade" id="permissionModal" aria-hidden="true">
                 <div class="modal-dialog">
@@ -66,11 +66,11 @@
 
           <script type="text/javascript">
             $(function(){
-                // $('#permissionForm').validate({
-                //   rules:{
-                //     'name':{required:true}
-                //   }
-                // });
+                $('#permissionForm').validate({
+                  rules:{
+                    'name':{required:true}
+                  }
+                });
                 $('#addPermission').on('click',function(){
                     $('#modelHeading').html('Add Permission');
                     $('#permissionModal').modal('show');
@@ -108,10 +108,21 @@
                     url:"/insert",
                     type:'POST',
                     datatype:'json',
+                    beforeSend:function(){
+                      $(document).find('span').html('');
+                    },
                     success:function(data){
                       $('#permissionModal').modal('hide');
                       $('#permissionForm').trigger('reset');
                       $("#table_permission").load(window.location + " #table_permission");
+                    },
+                    error:function(data){
+                      $.each(data.responseJSON.errors,function(i,error){
+                          console.log(i);
+                          //console.log(error);
+                          var el= $(document).find('[name="'+i+'"]');
+                          el.after($('<span class="text-danger">'+error+'</span>'));
+                      });
                     }
                   });
 

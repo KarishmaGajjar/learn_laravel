@@ -99,6 +99,14 @@
           </div>
 <script type="text/javascript">
   $(function () {
+    $('#add-form').validate({
+      rules:{
+        "product_name":{required:true},
+        "product_desc":{required:true},
+        "category":{required:true},
+        "status":{required:true}
+      }
+    });
     $.ajaxSetup({
             headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -124,8 +132,9 @@
    $('#createproduct').click(function(){
       $('#add-form').trigger('reset');
       $(document).find('span').html('');
-      $("input").prop('disabled', false);
+      $("input").prop('disabled',false);
       $('option:selected').prop("selected",false);
+      $("#category").prop('disabled',false);
       $('#id').val('');
       $('#modelHeading').html('Add Product');
       $('#ajaxModel').modal('show');
@@ -133,6 +142,8 @@
 
    $('#save-data').click(function(e){
       e.preventDefault();
+      var data=$('#add-form').serialize();
+       console.log(data);
       $.ajax({
           url:"{{route('products.create')}}",
           type:"POST",
@@ -140,6 +151,7 @@
           datatype:"json",
           // processData:false,
           // contentType:false,
+          // called before request is send
           beforeSend:function(){
            $(document).find('span').html('');
           },
@@ -149,12 +161,15 @@
             $('#ajaxModel').modal('hide');
             $('.data-table').DataTable().ajax.reload();
           },
-           error: function (data) {
+           error:function (data) {
+            console.log(data);
             $.each(data.responseJSON.errors, function (i, error) {
+                //i=element,error=message array
+                console.log(i);
                 var el = $(document).find('[name="'+i+'"]');
-                el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                el.after($('<span class="text-danger">'+error[0]+'</span>'));
             });
-          }
+           }
        });
     });
 
